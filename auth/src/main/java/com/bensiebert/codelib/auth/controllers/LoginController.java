@@ -15,8 +15,8 @@ import java.util.Map;
 
 @RestController
 @ConditionalOnBooleanProperty(
-        prefix = "auth.routes",
-        name = "login",
+        prefix = "codelib.auth",
+        name = "enable-login",
         havingValue = true,
         matchIfMissing = true
 )

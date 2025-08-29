@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class Authentication {
+public class Auth {
 
     @Autowired
     private TokenRepository tkns;
@@ -19,7 +19,7 @@ public class Authentication {
 
     @PostConstruct
     public void init() {
-        Authentication.tokens = tkns;
+        Auth.tokens = tkns;
     }
 
 

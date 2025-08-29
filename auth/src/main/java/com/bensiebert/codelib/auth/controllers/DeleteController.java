@@ -1,6 +1,6 @@
 package com.bensiebert.codelib.auth.controllers;
 
-import com.bensiebert.codelib.auth.primitive.Authentication;
+import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @ConditionalOnBooleanProperty(
-        prefix = "auth.routes",
-        name = "delete",
+        prefix = "codelib.auth",
+        name = "enable-delete",
         havingValue = true,
         matchIfMissing = true
 )
@@ -26,7 +26,7 @@ public class DeleteController {
 
     @RequestMapping(path = "/auth/delete", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public Object delete(@RequestHeader(name = "Authorization") String authHeader) {
-        User user = Authentication.getUserByHeader(authHeader);
+        User user = Auth.getUserByHeader(authHeader);
 
         if(user == null) {
             return new Object() {

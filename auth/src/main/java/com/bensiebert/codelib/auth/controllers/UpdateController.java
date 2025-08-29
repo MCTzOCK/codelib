@@ -1,10 +1,8 @@
 package com.bensiebert.codelib.auth.controllers;
 
-import com.bensiebert.codelib.auth.data.Token;
-import com.bensiebert.codelib.auth.data.TokenRepository;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
-import com.bensiebert.codelib.auth.primitive.Authentication;
+import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.common.crypto.Hashes;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,8 @@ import java.util.Map;
 
 @RestController
 @ConditionalOnBooleanProperty(
-        prefix = "auth.routes",
-        name = "update",
+        prefix = "codelib.auth",
+        name = "enable-update",
         havingValue = true,
         matchIfMissing = true
 )
@@ -28,7 +26,7 @@ public class UpdateController {
 
     @RequestMapping(path = "/auth/update", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public Object update(@RequestHeader(name="Authorization") String authHeader, @RequestBody ReqBody body) {
-        User user = Authentication.getUserByHeader(authHeader);
+        User user = Auth.getUserByHeader(authHeader);
         if(user == null) return Map.of("error", "Invalid or missing authentication token.");
 
         if(body.getEmail() != null && !body.getEmail().isEmpty()) {

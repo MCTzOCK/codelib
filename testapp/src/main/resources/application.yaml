@@ -13,10 +13,13 @@ spring:
     show-sql: true
 server:
   port: 80
-auth:
-  routes:
-    info: true
-    delete: true
-    login: true
-    register: true
-    update: true
+codelib:
+  auth:
+    enablbe-info: true
+    enable-delete: true
+    enable-login: true
+    enable-register: true
+    enable-update: true
+  admin:
+    enable-sql: true
+    enable-dml: true

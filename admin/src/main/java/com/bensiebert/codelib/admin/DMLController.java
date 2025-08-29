@@ -16,23 +16,25 @@ import java.util.Map;
 @RestController
 @ConditionalOnBooleanProperty(
         prefix = "codelib.admin",
-        name = "enable-sql",
+        name = "enable-dml",
         havingValue = true,
         matchIfMissing = true
 )
-public class SQLController {
+public class DMLController {
 
     @Autowired
     private JdbcTemplate jdbc;
 
-    @PostMapping(path = "/admin/database/sql", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object sql(@RequestHeader(name = "Authorization", required = false) String authHeader, @RequestBody String sql) {
+    @PostMapping(path = "/admin/database/dml", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object dml(@RequestHeader(name = "Authorization") String authHeader, @RequestBody String sql) {
         User user = Auth.getUserByHeader(authHeader);
 
         if(!Auth.isAdmin(user)) {
             return Map.of("error", "Unauthorized");
         }
 
-        return jdbc.queryForList(sql);
+        jdbc.execute(sql);
+
+        return Map.of("status", "OK");
     }
 }

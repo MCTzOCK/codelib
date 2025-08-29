@@ -21,6 +21,7 @@
         <module>auth</module>
         <module>common</module>
         <module>admin</module>
+        <module>settings</module>
     </modules>
 
     <distributionManagement>
