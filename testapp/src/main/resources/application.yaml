@@ -23,3 +23,5 @@ codelib:
   admin:
     enable-sql: true
     enable-dml: true
+  settings:
+    enable: true
