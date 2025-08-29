@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(
         scanBasePackages = {
-                "com.bensiebert.codelib.auth"
+                "com.bensiebert.codelib.auth",
+                "com.bensiebert.codelib.admin"
         }
 )
 public class TestApp {

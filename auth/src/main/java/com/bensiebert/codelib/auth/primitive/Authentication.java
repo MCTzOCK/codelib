@@ -41,4 +41,8 @@ public class Authentication {
 
         return token.getUser();
     }
+
+    public static boolean isAdmin(User user) {
+        return user != null && user.getRole().toLowerCase().equals("admin");
+    }
 }
