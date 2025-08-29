@@ -1,9 +1,7 @@
-package com.bensiebert.codelib.auth.sql.controllers;
+package com.bensiebert.codelib.auth.controllers;
 
 import com.bensiebert.codelib.auth.primitive.Authentication;
-import com.bensiebert.codelib.auth.sql.data.User;
-import com.bensiebert.codelib.auth.sql.data.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bensiebert.codelib.auth.data.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,17 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ConditionalOnBooleanProperty(
         prefix = "auth.routes",
-        name = "delete",
+        name = "info",
         havingValue = true,
         matchIfMissing = true
 )
-public class DeleteController {
+public class InfoController {
 
-    @Autowired
-    public UserRepository users;
-
-
-    @RequestMapping(path = "/auth/delete", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+    @RequestMapping(path = "/auth/info", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public Object delete(@RequestHeader(name = "Authorization") String authHeader) {
         User user = Authentication.getUserByHeader(authHeader);
 
@@ -35,11 +29,6 @@ public class DeleteController {
             };
         }
 
-        users.delete(user);
-
-        return new Object() {
-            public final String status = "ok";
-            public final String message = "User account deleted successfully.";
-        };
+        return user.withPasswordHash("");
     }
 }

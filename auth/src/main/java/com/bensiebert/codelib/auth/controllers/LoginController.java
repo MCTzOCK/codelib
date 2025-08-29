@@ -1,10 +1,9 @@
-package com.bensiebert.codelib.auth.sql.controllers;
+package com.bensiebert.codelib.auth.controllers;
 
-import com.bensiebert.codelib.auth.primitive.Authentication;
-import com.bensiebert.codelib.auth.sql.data.Token;
-import com.bensiebert.codelib.auth.sql.data.TokenRepository;
-import com.bensiebert.codelib.auth.sql.data.User;
-import com.bensiebert.codelib.auth.sql.data.UserRepository;
+import com.bensiebert.codelib.auth.data.Token;
+import com.bensiebert.codelib.auth.data.TokenRepository;
+import com.bensiebert.codelib.auth.data.User;
+import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.common.crypto.Hashes;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

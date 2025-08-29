@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.auth.sql.data;
+package com.bensiebert.codelib.auth.data;
 
 import org.springframework.data.repository.CrudRepository;
 

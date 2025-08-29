@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.auth.sql.data;
+package com.bensiebert.codelib.auth.data;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,15 +18,15 @@ public class User {
     private String username;
 
     @Column(unique = true, nullable = false)
-    private String email;
+    @With private String email;
 
     @Column(nullable = false)
     @With private String passwordHash;
 
     @Column(nullable = false)
-    private String name;
+    @With private String name;
 
     @Column(nullable = false)
-    private String role;
+    @With private String role;
 
 }

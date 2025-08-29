@@ -1,7 +1,6 @@
-package com.bensiebert.codelib.auth.sql.data;
+package com.bensiebert.codelib.auth.data;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;
 

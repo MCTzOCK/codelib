@@ -18,3 +18,5 @@ auth:
     info: true
     delete: true
     login: true
+    register: true
+    update: true
