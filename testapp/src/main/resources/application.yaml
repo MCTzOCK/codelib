@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: codelib testapp
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/testapp
+    username: postgres
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: true
+server:
+  port: 80
+auth:
+  routes:
+    info: true
+    delete: true
+    login: true
