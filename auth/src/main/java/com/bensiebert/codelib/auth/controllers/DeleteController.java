@@ -1,8 +1,10 @@
 package com.bensiebert.codelib.auth.controllers;
 
+import com.bensiebert.codelib.auth.hooks.AuthHooks;
 import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
+import com.bensiebert.codelib.hooks.HookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.http.MediaType;
@@ -36,6 +38,8 @@ public class DeleteController {
         }
 
         users.delete(user);
+
+        HookManager.fire(AuthHooks.USER_DELETED, user);
 
         return new Object() {
             public final String status = "ok";

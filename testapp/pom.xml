@@ -68,6 +68,11 @@
             <artifactId>settings</artifactId>
             <version>1.0.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.bensiebert.codelib</groupId>
+            <artifactId>hooks</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

@@ -2,7 +2,9 @@ package com.bensiebert.codelib.auth.controllers;
 
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
+import com.bensiebert.codelib.auth.hooks.AuthHooks;
 import com.bensiebert.codelib.common.crypto.Hashes;
+import com.bensiebert.codelib.hooks.HookManager;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
@@ -62,6 +64,8 @@ public class RegisterController {
         user.setPasswordHash(Hashes.sha256(body.getPassword()));
 
         user = users.save(user);
+
+        HookManager.fire(AuthHooks.USER_CREATED, user);
 
         return user.withPasswordHash("");
     }

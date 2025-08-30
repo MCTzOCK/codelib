@@ -3,7 +3,6 @@ package com.bensiebert.codelib.testapp;
 import com.bensiebert.codelib.auth.annotations.Authenticated;
 import com.bensiebert.codelib.auth.annotations.CurrentUser;
 import com.bensiebert.codelib.auth.data.User;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

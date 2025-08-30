@@ -4,7 +4,9 @@ import com.bensiebert.codelib.auth.data.Token;
 import com.bensiebert.codelib.auth.data.TokenRepository;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
+import com.bensiebert.codelib.auth.hooks.AuthHooks;
 import com.bensiebert.codelib.common.crypto.Hashes;
+import com.bensiebert.codelib.hooks.HookManager;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
@@ -42,6 +44,7 @@ public class LoginController {
             tkn.setExpiryTime(System.currentTimeMillis() + 60 * 60 * 1000 * 24 * 30L);
             tkn = tokens.save(tkn);
 
+            HookManager.fire(AuthHooks.USER_LOGGED_IN, user);
             return Map.of(
                     "token", tkn.getId()
             );
