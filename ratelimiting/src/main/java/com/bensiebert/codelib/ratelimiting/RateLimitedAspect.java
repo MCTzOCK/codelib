@@ -1,5 +1,6 @@
 package com.bensiebert.codelib.ratelimiting;
 
+import com.bensiebert.codelib.hooks.HookManager;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,6 +28,7 @@ public class RateLimitedAspect {
             return pjp.proceed();
         }
 
+        HookManager.fire("ratelimiting.after_rate_limited", pjp, rateLimited);
         throw new RateLimitExceededException(
                 rateLimited.limit() + "," + rateLimited.interval()
         );

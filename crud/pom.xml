@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.bensiebert.codelib</groupId>
-    <artifactId>settings</artifactId>
+    <artifactId>crud</artifactId>
     <version>1.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -52,21 +52,6 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.bensiebert.codelib</groupId>
-            <artifactId>auth</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bensiebert.codelib</groupId>
-            <artifactId>ratelimiting</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bensiebert.codelib</groupId>
-            <artifactId>hooks</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

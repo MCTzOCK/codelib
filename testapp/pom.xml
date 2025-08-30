@@ -83,6 +83,11 @@
             <artifactId>cache</artifactId>
             <version>1.0.5-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.bensiebert.codelib</groupId>
+            <artifactId>crud</artifactId>
+            <version>1.0.5-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

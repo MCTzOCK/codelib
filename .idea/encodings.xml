@@ -9,6 +9,10 @@
     <file url="file://$PROJECT_DIR$/cache/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crud/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crud/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/faq/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/faq/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hooks/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hooks/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ratelimiting/src/main/java" charset="UTF-8" />

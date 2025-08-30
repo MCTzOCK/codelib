@@ -25,6 +25,7 @@
         <module>hooks</module>
         <module>ratelimiting</module>
         <module>cache</module>
+        <module>crud</module>
     </modules>
 
     <distributionManagement>

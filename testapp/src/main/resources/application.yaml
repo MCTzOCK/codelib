@@ -11,6 +11,9 @@ spring:
       ddl-auto: update
     database: postgresql
     show-sql: true
+  data:
+    rest:
+      base-path: /entities
 server:
   port: 80
 codelib:

@@ -2,6 +2,7 @@ package com.bensiebert.codelib.settings.controllers;
 
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.primitive.Auth;
+import com.bensiebert.codelib.hooks.HookManager;
 import com.bensiebert.codelib.ratelimiting.RateLimited;
 import com.bensiebert.codelib.settings.data.Setting;
 import com.bensiebert.codelib.settings.data.SettingRepository;
@@ -54,6 +55,7 @@ public class SettingsController {
         if(existing != null) {
             existing.setValue(body.getValue());
             existing = repo.save(existing);
+            HookManager.fire("settings.updated", existing, user);
             return existing.withUser(null);
         }
 
@@ -63,6 +65,7 @@ public class SettingsController {
         setting.setValue(body.getValue());
         setting = repo.save(setting);
         setting = setting.withUser(null);
+        HookManager.fire("settings.created", setting, user);
 
         return setting;
     }
@@ -78,6 +81,7 @@ public class SettingsController {
 
         if(existing != null) {
             repo.delete(existing);
+            HookManager.fire("settings.deleted", existing, user);
         }
 
         return Map.of("status", "ok");
