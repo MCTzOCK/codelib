@@ -1,6 +1,8 @@
 package com.bensiebert.codelib.testapp;
 
 import com.bensiebert.codelib.auth.annotations.Authenticated;
+import com.bensiebert.codelib.auth.annotations.CurrentUser;
+import com.bensiebert.codelib.auth.data.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +25,11 @@ public class TestController {
 
     @Authenticated(roles = {"admin"})
     @GetMapping(path = "/test2", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object testEndpoint2(HttpServletRequest request) {
+    public Object testEndpoint2(@CurrentUser User user) {
         return new HashMap<>() {{
             put("status", "ok");
             put("message", "Test endpoint 2 is working and you are an admin!");
+            put("user", user);
         }};
     }
 }
