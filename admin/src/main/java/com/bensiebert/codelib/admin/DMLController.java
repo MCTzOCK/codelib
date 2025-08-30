@@ -2,6 +2,7 @@ package com.bensiebert.codelib.admin;
 
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.primitive.Auth;
+import com.bensiebert.codelib.hooks.HookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.http.MediaType;
@@ -34,6 +35,8 @@ public class DMLController {
         }
 
         jdbc.execute(sql);
+
+        HookManager.fire("admin.dml_executed", user, sql);
 
         return Map.of("status", "OK");
     }

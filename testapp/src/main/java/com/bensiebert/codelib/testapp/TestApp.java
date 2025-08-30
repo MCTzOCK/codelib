@@ -10,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "com.bensiebert.codelib.hooks",
                 "com.bensiebert.codelib.auth",
                 "com.bensiebert.codelib.admin",
-                "com.bensiebert.codelib.settings"
+                "com.bensiebert.codelib.settings",
+                "com.bensiebert.codelib.ratelimiting"
         }
 )
 public class TestApp {
@@ -19,6 +20,8 @@ public class TestApp {
         HookManager.scan(
                 "com.bensiebert.codelib.hooks",
                 "com.bensiebert.codelib.auth",
+                "com.bensiebert.codelib.admin",
+                "com.bensiebert.codelib.ratelimiting",
                 "com.bensiebert.codelib.testapp"
         );
         SpringApplication.run(TestApp.class, args);

@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hooks/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hooks/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ratelimiting/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ratelimiting/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/settings/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/settings/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

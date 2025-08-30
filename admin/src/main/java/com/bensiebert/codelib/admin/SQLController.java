@@ -2,6 +2,7 @@ package com.bensiebert.codelib.admin;
 
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.primitive.Auth;
+import com.bensiebert.codelib.hooks.HookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.http.MediaType;
@@ -32,6 +33,8 @@ public class SQLController {
         if(!Auth.isAdmin(user)) {
             return Map.of("error", "Unauthorized");
         }
+
+        HookManager.fire("admin.sql_executed", user, sql);
 
         return jdbc.queryForList(sql);
     }

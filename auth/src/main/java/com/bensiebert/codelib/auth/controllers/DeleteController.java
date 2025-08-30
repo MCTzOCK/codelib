@@ -5,6 +5,7 @@ import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.hooks.HookManager;
+import com.bensiebert.codelib.ratelimiting.RateLimited;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ public class DeleteController {
     public UserRepository users;
 
 
+    @RateLimited
     @RequestMapping(path = "/auth/delete", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public Object delete(@RequestHeader(name = "Authorization") String authHeader) {
         User user = Auth.getUserByHeader(authHeader);

@@ -7,6 +7,7 @@ import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.auth.hooks.AuthHooks;
 import com.bensiebert.codelib.common.crypto.Hashes;
 import com.bensiebert.codelib.hooks.HookManager;
+import com.bensiebert.codelib.ratelimiting.RateLimited;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
@@ -30,6 +31,7 @@ public class LoginController {
     @Autowired
     private TokenRepository tokens;
 
+    @RateLimited
     @RequestMapping(path = "/auth/login", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public Object delete(@RequestBody ReqBody body) {
         if(body == null) return Map.of("error", "Invalid request body.");

@@ -6,6 +6,7 @@ import com.bensiebert.codelib.auth.hooks.AuthHooks;
 import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.common.crypto.Hashes;
 import com.bensiebert.codelib.hooks.HookManager;
+import com.bensiebert.codelib.ratelimiting.RateLimited;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
@@ -26,6 +27,7 @@ public class UpdateController {
     @Autowired
     private UserRepository users;
 
+    @RateLimited(limit = 5, interval = 60)
     @RequestMapping(path = "/auth/update", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public Object update(@RequestHeader(name="Authorization") String authHeader, @RequestBody ReqBody body) {
         User user = Auth.getUserByHeader(authHeader);
