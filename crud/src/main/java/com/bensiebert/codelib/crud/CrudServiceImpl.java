@@ -42,4 +42,5 @@ public class CrudServiceImpl<T, ID, R extends JpaRepository<T, ID> & JpaSpecific
     public Optional<T> findById(ID id) {
         return repository.findById(id);
     }
+
 }

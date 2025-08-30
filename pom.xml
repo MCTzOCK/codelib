@@ -26,6 +26,7 @@
         <module>ratelimiting</module>
         <module>cache</module>
         <module>crud</module>
+        <module>faq</module>
     </modules>
 
     <distributionManagement>

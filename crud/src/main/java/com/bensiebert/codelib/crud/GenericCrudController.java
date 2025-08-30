@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 public abstract class GenericCrudController<T, ID> {
 
@@ -40,7 +41,7 @@ public abstract class GenericCrudController<T, ID> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<T> getById(@PathVariable ID id) {
+    public ResponseEntity<T> getById(@PathVariable(name = "id") ID id) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -56,11 +57,13 @@ public abstract class GenericCrudController<T, ID> {
 
     @PutMapping("/{id}")
     public ResponseEntity<T> update(
-            @PathVariable ID id,
+            @PathVariable(name = "id") ID id,
             @RequestBody T entity
     ) {
         return service.findById(id)
                 .map(existing -> {
+                    String idx = getId(existing).toString();
+                    service.deleteById(getId(existing));
                     T updated = service.save(entity);
                     return ResponseEntity.ok(updated);
                 })
@@ -68,11 +71,11 @@ public abstract class GenericCrudController<T, ID> {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable ID id) {
+    public ResponseEntity<Object> delete(@PathVariable(name = "id") ID id) {
         return service.findById(id)
                 .map(existing -> {
                     service.deleteById(id);
-                    return ResponseEntity.noContent().build();
+                    return ResponseEntity.ok().build();
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

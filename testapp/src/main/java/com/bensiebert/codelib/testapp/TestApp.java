@@ -14,7 +14,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                 "com.bensiebert.codelib.admin",
                 "com.bensiebert.codelib.settings",
                 "com.bensiebert.codelib.ratelimiting",
-                "com.bensiebert.codelib.crud"
+                "com.bensiebert.codelib.crud",
+                "com.bensiebert.codelib.faq"
         }
 )
 @EnableJpaRepositories("com.bensiebert.codelib.testapp")
@@ -27,7 +28,8 @@ public class TestApp {
                 "com.bensiebert.codelib.admin",
                 "com.bensiebert.codelib.ratelimiting",
                 "com.bensiebert.codelib.testapp",
-                "com.bensiebert.codelib.settings"
+                "com.bensiebert.codelib.settings",
+                "com.bensiebert.codelib.faq"
         );
         SpringApplication.run(TestApp.class, args);
     }
