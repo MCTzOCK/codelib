@@ -24,6 +24,7 @@
         <module>settings</module>
         <module>hooks</module>
         <module>ratelimiting</module>
+        <module>cache</module>
     </modules>
 
     <distributionManagement>
