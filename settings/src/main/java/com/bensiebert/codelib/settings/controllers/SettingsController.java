@@ -2,6 +2,7 @@ package com.bensiebert.codelib.settings.controllers;
 
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.primitive.Auth;
+import com.bensiebert.codelib.ratelimiting.RateLimited;
 import com.bensiebert.codelib.settings.data.Setting;
 import com.bensiebert.codelib.settings.data.SettingRepository;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class SettingsController {
     @Autowired
     private SettingRepository repo;
 
+    @RateLimited(limit = 1, interval = 1)
     @RequestMapping(path = "/settings", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public Object getSettings(@RequestHeader(name = "Authorization") String authHeader) {
         User user = Auth.getUserByHeader(authHeader);
@@ -40,6 +42,7 @@ public class SettingsController {
         return settings;
     }
 
+    @RateLimited(limit = 1, interval = 1)
     @RequestMapping(path = "/settings", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public Object createOrUpdateSetting(@RequestHeader(name = "Authorization") String authHeader, @RequestBody PostBody body) {
         User user = Auth.getUserByHeader(authHeader);
@@ -64,6 +67,7 @@ public class SettingsController {
         return setting;
     }
 
+    @RateLimited(limit = 1, interval = 1)
     @RequestMapping(path = "/settings", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public Object deleteSetting(@RequestHeader(name = "Authorization") String authHeader, @RequestBody DeleteBody body) {
         User user = Auth.getUserByHeader(authHeader);
