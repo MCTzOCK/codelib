@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.bensiebert</groupId>
         <artifactId>codelib</artifactId>
-        <version>1.0.8-SNAPSHOT</version>
+        <version>1.0.9-SNAPSHOT</version>
     </parent>
 
     <groupId>com.bensiebert.codelib</groupId>
     <artifactId>common</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
