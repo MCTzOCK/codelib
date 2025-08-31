@@ -35,6 +35,10 @@
             <id>nexus-snapshots</id>
             <url>https://nexus.ben-siebert.com/repository/maven-snapshots/</url>
         </repository>
+        <site>
+            <id>javadoc-site</id>
+            <url>dav:http://nexus.ben-siebert.com/repository/javadoc-site/com.bensiebert.codelib/${project.version}/</url>
+        </site>
     </distributionManagement>
 
 
@@ -68,59 +72,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.2</version>
-                <executions>
-                    <execution>
-                        <id>aggregate-javadoc</id>
-                        <goals>
-                            <goal>aggregate</goal>
-                        </goals>
-                        <phase>site</phase>
-                        <configuration>
-                            <destDir>apidocs</destDir>
-                            <doctitle>My Project API</doctitle>
-                            <windowtitle>My Project API</windowtitle>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.12.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
-
-    <reporting>
-        <plugins>
-
-            <!-- Aggregate Javadoc across modules -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.2</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
-                        <configuration>
-                            <destDir>apidocs</destDir>
-                            <doctitle>CodeLib API</doctitle>
-                            <windowtitle>CodeLib API</windowtitle>
-                        </configuration>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
 
 </project>

@@ -1,7 +1,0 @@
-com.bensiebert.codelib.auth
-com.bensiebert.codelib.auth.annotations
-com.bensiebert.codelib.auth.aspects
-com.bensiebert.codelib.auth.controllers
-com.bensiebert.codelib.auth.data
-com.bensiebert.codelib.auth.hooks
-com.bensiebert.codelib.auth.primitive

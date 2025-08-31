@@ -14,12 +14,17 @@ import java.util.HashMap;
 @RestController
 public class TestController {
 
+    @Authenticated(customMethod = "checkAccessTest", roles = {"user", "admin"})
     @RequestMapping(path = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object testEndpoint() {
         return new HashMap<>() {{
             put("status", "ok");
             put("message", "Test endpoint is working!");
         }};
+    }
+
+    public boolean checkAccessTest(User user) {
+        return user != null && user.getUsername().equals("ben");
     }
 
     @Authenticated(roles = {"admin"})

@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.bensiebert.codelib.crud","l":"CrudService"},{"p":"com.bensiebert.codelib.crud","l":"CrudServiceImpl"},{"p":"com.bensiebert.codelib.crud","l":"GenericCrudController"}];updateSearchResults();

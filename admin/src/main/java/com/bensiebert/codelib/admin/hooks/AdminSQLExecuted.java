@@ -7,6 +7,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * This hook is called after the /admin/database/sql endpoint has queried the database.
+ */
 @Hook("admin.sql_executed")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.bensiebert.codelib.testapp"},{"l":"com.bensiebert.codelib.testapp.crudtest"}];updateSearchResults();

@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.lang.reflect.Method;
+
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     private final TokenRepository tokens;
@@ -59,6 +61,24 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
 
         request.setAttribute("user", tkn.getUser());
+
+        if(!ann.customMethod().isBlank()) {
+            Class clazz = hm.getBeanType();
+            Method method = clazz.getMethod(ann.customMethod(), tkn.getUser().getClass());
+            if(method == null) {
+                return reject(response, "Invalid custom authentication method.");
+            }
+
+            if(method.getReturnType() != boolean.class) {
+                return reject(response, "Invalid custom authentication method.");
+            }
+
+            boolean result = (boolean) method.invoke(hm.getBean(), tkn.getUser());
+
+            if(!result) {
+                return reject(response, "Custom authentication method returned false.");
+            }
+        }
         return true;
     }
 
