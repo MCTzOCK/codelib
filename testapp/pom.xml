@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.bensiebert</groupId>
         <artifactId>codelib</artifactId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.8-SNAPSHOT</version>
     </parent>
 
     <groupId>com.bensiebert.codelib</groupId>
     <artifactId>testapp</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>24</maven.compiler.source>
@@ -51,52 +51,52 @@
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>auth</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>common</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>admin</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>settings</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>hooks</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>ratelimiting</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>cache</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>crud</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>faq</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>onbaording</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
