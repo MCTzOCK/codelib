@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.bensiebert</groupId>
         <artifactId>codelib</artifactId>
-        <version>1.0.11-SNAPSHOT</version>
+        <version>1.0.13-SNAPSHOT</version>
     </parent>
 
     <groupId>com.bensiebert.codelib</groupId>
     <artifactId>auth</artifactId>
-    <version>1.0.11-SNAPSHOT</version>
+    <version>1.0.13-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -59,17 +59,17 @@
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>common</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.13-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>hooks</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.13-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
             <artifactId>ratelimiting</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.13-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

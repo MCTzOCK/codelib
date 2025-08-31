@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.bensiebert.codelib.cache","l":"KVCache"},{"p":"com.bensiebert.codelib.cache","l":"KVItem"}];updateSearchResults();

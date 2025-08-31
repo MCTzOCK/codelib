@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.bensiebert.codelib.hooks","l":"Hook"},{"p":"com.bensiebert.codelib.hooks","l":"HookManager"}];updateSearchResults();
