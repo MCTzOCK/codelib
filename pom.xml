@@ -27,6 +27,7 @@
         <module>cache</module>
         <module>crud</module>
         <module>faq</module>
+        <module>onboarding</module>
     </modules>
 
     <distributionManagement>

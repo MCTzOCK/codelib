@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.faq.data;
+package com.bensiebert.codelib.onboarding.data;
 
 import jakarta.persistence.*;
 import lombok.Getter;

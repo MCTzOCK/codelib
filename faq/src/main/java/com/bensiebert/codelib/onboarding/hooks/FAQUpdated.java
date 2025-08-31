@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.faq.hooks;
+package com.bensiebert.codelib.onboarding.hooks;
 
 import com.bensiebert.codelib.hooks.Hook;
 
@@ -7,8 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Hook("faq.deleted")
+@Hook("faq.updated")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface FAQDeleted {
+public @interface FAQUpdated {
 }
