@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.lang.reflect.Field;
 import java.util.Optional;
 
 @Transactional
@@ -43,4 +44,28 @@ public class CrudServiceImpl<T, ID, R extends JpaRepository<T, ID> & JpaSpecific
         return repository.findById(id);
     }
 
+    @Override
+    public T update(ID id, T entity) {
+        T e = repository.findById(id).orElse(entity);
+
+        Field[] fields = entity.getClass().getDeclaredFields();
+
+        for(Field field : fields) {
+            field.setAccessible(true);
+            try {
+                if(field.getName().equals("id")) {
+                    continue;
+                }
+                Object value = field.get(entity);
+                if(value != null) {
+                    field.set(e, value);
+                }
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        repository.delete(entity);
+        return repository.save(e);
+    }
 }

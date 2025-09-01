@@ -60,14 +60,7 @@ public abstract class GenericCrudController<T, ID> {
             @PathVariable(name = "id") ID id,
             @RequestBody T entity
     ) {
-        return service.findById(id)
-                .map(existing -> {
-                    String idx = getId(existing).toString();
-                    service.deleteById(getId(existing));
-                    T updated = service.save(entity);
-                    return ResponseEntity.ok(updated);
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(service.update(id, entity));
     }
 
     @DeleteMapping("/{id}")

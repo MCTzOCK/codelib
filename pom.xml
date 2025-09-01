@@ -6,7 +6,7 @@
 
     <groupId>com.bensiebert</groupId>
     <artifactId>codelib</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
+    <version>1.0.14-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -28,6 +28,7 @@
         <module>crud</module>
         <module>faq</module>
         <module>onboarding</module>
+        <module>todo</module>
     </modules>
 
     <distributionManagement>
