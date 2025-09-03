@@ -4,6 +4,7 @@ import com.bensiebert.codelib.auth.annotations.Authenticated;
 import com.bensiebert.codelib.crud.GenericCrudController;
 import com.bensiebert.codelib.hooks.HookManager;
 import com.bensiebert.codelib.ratelimiting.RateLimited;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -29,6 +30,7 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @Authenticated(roles = {"admin"})
+    @Operation(summary = "Create a new FAQ entry", tags = {"faqs"})
     public ResponseEntity<FAQ> create(FAQ entity) {
         HookManager.fire("faq.created", entity);
         return super.create(entity);
@@ -36,6 +38,7 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @Authenticated(roles = {"admin"})
+    @Operation(summary = "Delete a FAQ entry", tags = {"faqs"})
     public ResponseEntity<Object> delete(String s) {
         HookManager.fire("faq.deleted", s);
         return super.delete(s);
@@ -43,6 +46,7 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @Authenticated(roles = {"admin"})
+    @Operation(summary = "Update a FAQ entry", tags = {"faqs"})
     public ResponseEntity<FAQ> update(String s, FAQ entity) {
         HookManager.fire("faq.updated", entity);
         return super.update(s, entity);
@@ -50,12 +54,14 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @RateLimited(limit = 10, interval = 60)
+    @Operation(summary = "Get a specific FAQ entry", tags = {"faqs"})
     public ResponseEntity<FAQ> getById(String s) {
         return super.getById(s);
     }
 
     @Override
     @RateLimited(limit = 10, interval = 60)
+    @Operation(summary = "Get all FAQ entries", tags = {"faqs"})
     public ResponseEntity<Page<FAQ>> getAll(String search, Pageable pageable) {
         return super.getAll(search, pageable);
     }

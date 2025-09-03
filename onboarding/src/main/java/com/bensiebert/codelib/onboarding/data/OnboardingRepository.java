@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.faq.data;
+package com.bensiebert.codelib.onboarding.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

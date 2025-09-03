@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.faq;
+package com.bensiebert.codelib.onboarding;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

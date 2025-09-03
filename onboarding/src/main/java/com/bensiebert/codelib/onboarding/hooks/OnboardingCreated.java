@@ -1,4 +1,4 @@
-package com.bensiebert.codelib.faq.hooks;
+package com.bensiebert.codelib.onboarding.hooks;
 
 import com.bensiebert.codelib.hooks.Hook;
 

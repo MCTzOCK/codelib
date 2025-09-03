@@ -1,5 +1,7 @@
 package com.bensiebert.codelib.auth.controllers;
 
+import com.bensiebert.codelib.auth.annotations.Authenticated;
+import com.bensiebert.codelib.auth.annotations.CurrentUser;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.auth.hooks.AuthHooks;
@@ -7,6 +9,9 @@ import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.common.crypto.Hashes;
 import com.bensiebert.codelib.hooks.HookManager;
 import com.bensiebert.codelib.ratelimiting.RateLimited;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
@@ -27,11 +32,16 @@ public class UpdateController {
     @Autowired
     private UserRepository users;
 
+    @Operation(summary = "Update a user account", tags = "users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User updated successfully"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "429", description = "Too Many Requests")
+    })
+    @Authenticated
     @RateLimited(limit = 5, interval = 60)
     @RequestMapping(path = "/auth/update", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public Object update(@RequestHeader(name="Authorization") String authHeader, @RequestBody ReqBody body) {
-        User user = Auth.getUserByHeader(authHeader);
-        if(user == null) return Map.of("error", "Invalid or missing authentication token.");
+    public Object update(@CurrentUser User user, @RequestBody ReqBody body) {
 
         if(body.getEmail() != null && !body.getEmail().isEmpty()) {
             if(users.existsByEmail(body.getEmail())) {

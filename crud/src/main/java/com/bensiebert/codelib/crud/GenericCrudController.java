@@ -1,5 +1,8 @@
 package com.bensiebert.codelib.crud;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -9,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Optional;
 
 public abstract class GenericCrudController<T, ID> {
 
@@ -25,6 +27,12 @@ public abstract class GenericCrudController<T, ID> {
         return null;
     }
 
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Data retrieved successfully"),
+            @ApiResponse(responseCode = "401", description = "(May have) Unauthorized"),
+            @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
+    })
     @GetMapping
     public ResponseEntity<Page<T>> getAll(
             @RequestParam(value = "search", required = false) String search,
@@ -40,6 +48,11 @@ public abstract class GenericCrudController<T, ID> {
         return ResponseEntity.ok(page);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Data retrieved successfully"),
+            @ApiResponse(responseCode = "401", description = "(May have) Unauthorized"),
+            @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<T> getById(@PathVariable(name = "id") ID id) {
         return service.findById(id)
@@ -47,6 +60,11 @@ public abstract class GenericCrudController<T, ID> {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Data created successfully"),
+            @ApiResponse(responseCode = "401", description = "(May have) Unauthorized"),
+            @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
+    })
     @PostMapping
     public ResponseEntity<T> create(@RequestBody T entity) {
         T saved = service.save(entity);
@@ -55,6 +73,11 @@ public abstract class GenericCrudController<T, ID> {
                 .body(saved);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Data updated successfully"),
+            @ApiResponse(responseCode = "401", description = "(May have) Unauthorized"),
+            @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<T> update(
             @PathVariable(name = "id") ID id,
@@ -63,6 +86,11 @@ public abstract class GenericCrudController<T, ID> {
         return ResponseEntity.ok(service.update(id, entity));
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Data deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "(May have) Unauthorized"),
+            @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable(name = "id") ID id) {
         return service.findById(id)
