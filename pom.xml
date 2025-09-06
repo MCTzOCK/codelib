@@ -29,6 +29,7 @@
         <module>faq</module>
         <module>onboarding</module>
         <module>todo</module>
+        <module>avatars</module>
     </modules>
 
     <distributionManagement>

@@ -49,6 +49,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         String userRole = tkn.getUser().getRole();
         boolean ok = false;
 
+        if(userRole.equalsIgnoreCase("admin")) {
+            ok = true;
+        }
+
         for(String role : required) {
             if(userRole.equalsIgnoreCase(role)) {
                 ok = true;
