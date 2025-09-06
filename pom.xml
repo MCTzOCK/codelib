@@ -30,6 +30,7 @@
         <module>onboarding</module>
         <module>todo</module>
         <module>avatars</module>
+        <module>userdiscovery</module>
     </modules>
 
     <distributionManagement>

@@ -6,6 +6,7 @@ import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.avatars.data.Avatar;
 import com.bensiebert.codelib.avatars.data.AvatarRepository;
 import com.bensiebert.codelib.hooks.HookManager;
+import com.bensiebert.codelib.ratelimiting.RateLimited;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,12 +21,13 @@ public class AvatarController {
     @Autowired
     private AvatarRepository repo;
 
-    @Operation(summary = "Update an avatar")
+    @Operation(summary = "Update an avatar", tags = {"Avatars"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Avatar updated successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request - Invalid URL"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
+    @RateLimited(limit = 5, interval = 60)
     @Authenticated(roles = {"user"})
     @RequestMapping(path = "/avatars", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object updateAvatar(@RequestParam(name = "url") String url, @CurrentUser User user) {

@@ -108,6 +108,11 @@
             <artifactId>avatars</artifactId>
             <version>1.0.18-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.bensiebert.codelib</groupId>
+            <artifactId>userdiscovery</artifactId>
+            <version>1.0.18-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

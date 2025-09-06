@@ -17,7 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                 "com.bensiebert.codelib.crud",
                 "com.bensiebert.codelib.faq",
                 "com.bensiebert.codelib.onboarding",
-                "com.bensiebert.codelib.avatars"
+                "com.bensiebert.codelib.avatars",
+                "com.bensiebert.codelib.userdiscovery",
         }
 )
 @EnableJpaRepositories("com.bensiebert.codelib.testapp")
@@ -33,7 +34,8 @@ public class TestApp {
                 "com.bensiebert.codelib.settings",
                 "com.bensiebert.codelib.faq",
                 "com.bensiebert.codelib.onboarding",
-                "com.bensiebert.codelib.avatars"
+                "com.bensiebert.codelib.avatars",
+                "com.bensiebert.codelib.userdiscovery"
         );
         SpringApplication.run(TestApp.class, args);
     }
