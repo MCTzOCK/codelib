@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UniqueUserAndKey", columnNames = {"user_id", "key"})})
 public class Setting {
 
     @Id
