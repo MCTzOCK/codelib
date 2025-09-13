@@ -19,7 +19,7 @@ public class Avatar {
     private String id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
-    private User userId;
+    private User user;
 
     @Column(nullable = false)
     private String avatar;
