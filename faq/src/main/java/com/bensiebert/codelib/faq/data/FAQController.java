@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,39 +32,39 @@ public class FAQController extends GenericCrudController<FAQ, String> {
     @Override
     @Authenticated(roles = {"admin"})
     @Operation(summary = "Create a new FAQ entry", tags = {"faqs"})
-    public ResponseEntity<FAQ> create(FAQ entity) {
+    public ResponseEntity<FAQ> create(FAQ entity, HttpServletRequest httpRequest) {
         HookManager.fire("faq.created", entity);
-        return super.create(entity);
+        return super.create(entity, httpRequest);
     }
 
     @Override
     @Authenticated(roles = {"admin"})
     @Operation(summary = "Delete a FAQ entry", tags = {"faqs"})
-    public ResponseEntity<Object> delete(String s) {
+    public ResponseEntity<Object> delete(String s, HttpServletRequest httpRequest) {
         HookManager.fire("faq.deleted", s);
-        return super.delete(s);
+        return super.delete(s, httpRequest);
     }
 
     @Override
     @Authenticated(roles = {"admin"})
     @Operation(summary = "Update a FAQ entry", tags = {"faqs"})
-    public ResponseEntity<FAQ> update(String s, FAQ entity) {
+    public ResponseEntity<FAQ> update(String s, FAQ entity, HttpServletRequest httpRequest) {
         HookManager.fire("faq.updated", entity);
-        return super.update(s, entity);
+        return super.update(s, entity, httpRequest);
     }
 
     @Override
     @RateLimited(limit = 10, interval = 60)
     @Operation(summary = "Get a specific FAQ entry", tags = {"faqs"})
-    public ResponseEntity<FAQ> getById(String s) {
-        return super.getById(s);
+    public ResponseEntity<FAQ> getById(String s, HttpServletRequest httpRequest) {
+        return super.getById(s, httpRequest);
     }
 
     @Override
     @RateLimited(limit = 10, interval = 60)
     @Operation(summary = "Get all FAQ entries", tags = {"faqs"})
-    public ResponseEntity<Page<FAQ>> getAll(String search, Pageable pageable) {
-        return super.getAll(search, pageable);
+    public ResponseEntity<Page<FAQ>> getAll(String search, Pageable pageable, HttpServletRequest httpRequest) {
+        return super.getAll(search, pageable, httpRequest);
     }
 
     @Override

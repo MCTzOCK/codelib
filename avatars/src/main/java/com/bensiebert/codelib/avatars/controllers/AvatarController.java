@@ -21,7 +21,7 @@ public class AvatarController {
     @Autowired
     private AvatarRepository repo;
 
-    @Operation(summary = "Update an avatar", tags = {"Avatars"})
+    @Operation(summary = "Update an avatar", tags = {"avatars"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Avatar updated successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request - Invalid URL"),
@@ -31,7 +31,7 @@ public class AvatarController {
     @Authenticated(roles = {"user"})
     @RequestMapping(path = "/avatars", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object updateAvatar(@RequestParam(name = "url") String url, @CurrentUser User user) {
-        if(url == null || url.isEmpty() || !url.startsWith("http") || !url.contains("://")) {
+        if(url == null || !url.startsWith("http") || !url.contains("://")) {
             return new Object() {
                 public final String status = "error";
                 public final String message = "URL is not valid.";
@@ -58,7 +58,7 @@ public class AvatarController {
         };
     }
 
-    @Operation(summary = "Get a user's avatar by their user ID")
+    @Operation(summary = "Get a user's avatar by their user ID", tags = {"avatars"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "302", description = "Redirect to avatar URL"),
             @ApiResponse(responseCode = "404", description = "Avatar not found")

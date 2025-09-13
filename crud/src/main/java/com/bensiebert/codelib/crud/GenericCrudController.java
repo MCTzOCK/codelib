@@ -3,6 +3,7 @@ package com.bensiebert.codelib.crud;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -39,7 +40,8 @@ public abstract class GenericCrudController<T, ID> {
             @PageableDefault(size = 20)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "id")
-            }) Pageable pageable
+            }) Pageable pageable,
+            HttpServletRequest httpRequest
     ) {
         Specification<T> spec = buildSpecification(search);
         Page<T> page = (spec == null)
@@ -54,7 +56,7 @@ public abstract class GenericCrudController<T, ID> {
             @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<T> getById(@PathVariable(name = "id") ID id) {
+    public ResponseEntity<T> getById(@PathVariable(name = "id") ID id, HttpServletRequest httpRequest) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -66,7 +68,7 @@ public abstract class GenericCrudController<T, ID> {
             @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
     })
     @PostMapping
-    public ResponseEntity<T> create(@RequestBody T entity) {
+    public ResponseEntity<T> create(@RequestBody T entity, HttpServletRequest httpRequest) {
         T saved = service.save(entity);
         return ResponseEntity
                 .created(URI.create(basePath + "/" + getId(saved)))
@@ -81,7 +83,8 @@ public abstract class GenericCrudController<T, ID> {
     @PutMapping("/{id}")
     public ResponseEntity<T> update(
             @PathVariable(name = "id") ID id,
-            @RequestBody T entity
+            @RequestBody T entity,
+            HttpServletRequest httpRequest
     ) {
         return ResponseEntity.ok(service.update(id, entity));
     }
@@ -92,7 +95,7 @@ public abstract class GenericCrudController<T, ID> {
             @ApiResponse(responseCode = "429", description = "(May have) Too Many Requests")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(name = "id") ID id) {
+    public ResponseEntity<Object> delete(@PathVariable(name = "id") ID id, HttpServletRequest httpRequest) {
         return service.findById(id)
                 .map(existing -> {
                     service.deleteById(id);

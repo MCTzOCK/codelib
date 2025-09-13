@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,39 +32,39 @@ public class OnboardingController extends GenericCrudController<Onboarding, Stri
     @Override
     @Operation(summary = "Create a new Onboarding entry", tags = {"onboarding"})
     @Authenticated(roles = {"admin"})
-    public ResponseEntity<Onboarding> create(Onboarding entity) {
+    public ResponseEntity<Onboarding> create(Onboarding entity, HttpServletRequest httpRequest) {
         HookManager.fire("onboarding.created", entity);
-        return super.create(entity);
+        return super.create(entity, httpRequest);
     }
 
     @Override
     @Operation(summary = "Delete an Onboarding entry", tags = {"onboarding"})
     @Authenticated(roles = {"admin"})
-    public ResponseEntity<Object> delete(String s) {
+    public ResponseEntity<Object> delete(String s, HttpServletRequest httpRequest) {
         HookManager.fire("onboarding.deleted", s);
-        return super.delete(s);
+        return super.delete(s, httpRequest);
     }
 
     @Override
     @Operation(summary = "Update an Onboarding entry", tags = {"onboarding"})
     @Authenticated(roles = {"admin"})
-    public ResponseEntity<Onboarding> update(String s, Onboarding entity) {
+    public ResponseEntity<Onboarding> update(String s, Onboarding entity, HttpServletRequest httpRequest) {
         HookManager.fire("onboarding.updated", entity);
-        return super.update(s, entity);
+        return super.update(s, entity, httpRequest);
     }
 
     @Override
     @Operation(summary = "Get a specific Onboarding entry", tags = {"onboarding"})
     @RateLimited(limit = 10, interval = 60)
-    public ResponseEntity<Onboarding> getById(String s) {
-        return super.getById(s);
+    public ResponseEntity<Onboarding> getById(String s, HttpServletRequest httpRequest) {
+        return super.getById(s, httpRequest);
     }
 
     @Override
     @Operation(summary = "Get all Onboarding entry", tags = {"onboarding"})
     @RateLimited(limit = 10, interval = 60)
-    public ResponseEntity<Page<Onboarding>> getAll(String search, Pageable pageable) {
-        return super.getAll(search, pageable);
+    public ResponseEntity<Page<Onboarding>> getAll(String search, Pageable pageable, HttpServletRequest httpRequest) {
+        return super.getAll(search, pageable, httpRequest);
     }
 
     @Override
