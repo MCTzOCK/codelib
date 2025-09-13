@@ -1,5 +1,6 @@
 package com.bensiebert.codelib.chats.data;
 
+import com.bensiebert.codelib.auth.data.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,6 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable = false)
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> userIds;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<User> users;
 }

@@ -1,5 +1,6 @@
 package com.bensiebert.codelib.avatars.data;
 
+import com.bensiebert.codelib.auth.data.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,8 +18,8 @@ public class Avatar {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable = false, unique = true)
-    private String userId;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
+    private User userId;
 
     @Column(nullable = false)
     private String avatar;

@@ -20,7 +20,7 @@ public class ChatMessage {
     @Column(nullable = false)
     private String senderId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = false)

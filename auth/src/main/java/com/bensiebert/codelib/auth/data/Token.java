@@ -20,6 +20,6 @@ public class Token {
     @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     private User user;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Long expiryTime;
 }
