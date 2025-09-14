@@ -1,5 +1,6 @@
 package com.bensiebert.codelib.ratelimiting;
 
+import com.bensiebert.codelib.ratelimiting.springdoc.Error429Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,10 +13,8 @@ public class RateLimitExceptionHandler {
     public ResponseEntity<Object> handle(RateLimitExceededException ex) {
         return ResponseEntity
                 .status(HttpStatus.TOO_MANY_REQUESTS)
-                .body(new Object() {
-                    public final String error = "Your request has been rate limited.";
-                    public final Integer maxCalls = Integer.parseInt(ex.getMessage().split(",")[0]);
-                    public final Integer perSeconds = Integer.parseInt(ex.getMessage().split(",")[1]);
-                });
+                .body(new Error429Response("Your request has been rate limited.",
+                        Integer.parseInt(ex.getMessage().split(",")[0]),
+                        Integer.parseInt(ex.getMessage().split(",")[1])));
     }
 }

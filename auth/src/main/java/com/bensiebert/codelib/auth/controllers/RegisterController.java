@@ -4,12 +4,19 @@ import com.bensiebert.codelib.auth.annotations.Authenticated;
 import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.auth.hooks.AuthHooks;
+import com.bensiebert.codelib.auth.springdoc.BasicErrorResponse;
+import com.bensiebert.codelib.auth.springdoc.UnauthorizedResponse401;
 import com.bensiebert.codelib.common.crypto.Hashes;
 import com.bensiebert.codelib.hooks.HookManager;
 import com.bensiebert.codelib.ratelimiting.RateLimited;
+import com.bensiebert.codelib.ratelimiting.springdoc.Error429Response;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
@@ -33,38 +40,48 @@ public class RegisterController {
     @Autowired
     private UserRepository users;
 
-    @Operation(summary = "Registser a user account", tags = "users")
+    @Operation(summary = "Register a user account", tags = "Users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Registration successful"),
-            @ApiResponse(responseCode = "429", description = "Too Many Requests")
+            @ApiResponse(responseCode = "200", description = "Registration successful",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))
+                    }),
+            @ApiResponse(responseCode = "429", description = "Too Many Requests",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = BasicErrorResponse.class))
+                    }),
     })
     @RateLimited(limit = 5, interval = 60)
     @RequestMapping(path = "/auth/register", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public Object delete(@RequestBody ReqBody body) {
-        if(body == null) return Map.of("error", "Invalid request body.");
+    public Object delete(@Parameter(schema = @Schema(implementation = RegisterController.RegisterReqBody.class)) @RequestBody RegisterReqBody body, HttpServletResponse res) {
+        if (body == null) return reject("Invalid request body.", res);
 
-        if(users.existsByUsername(body.getUsername())) {
-            return Map.of("error", "Username is already in use.");
+        if (users.existsByUsername(body.getUsername())) {
+            return reject("Username is already in use.", res);
         }
 
-        if(users.existsByEmail(body.getEmail())) {
-            return Map.of("error", "Email is already in use.");
+        if (users.existsByEmail(body.getEmail())) {
+            return reject("Email is already in use.", res);
         }
 
-        if(body.getPassword().length() < 8) {
-            return Map.of("error", "Password must be at least 8 characters long.");
+        if (body.getPassword().length() < 8) {
+            return reject("Password must be at least 8 characters long.", res);
         }
 
-        if(body.getUsername().length() < 3) {
-            return Map.of("error", "Username must be at least 3 characters long.");
+        if (body.getUsername().length() < 3) {
+            return reject("Username must be at least 3 characters long.", res);
         }
 
-        if(body.getName().length() < 3) {
-            return Map.of("error", "Name must be at least 3 characters long.");
+        if (body.getName().length() < 3) {
+            return reject("Name must be at least 3 characters long.", res);
         }
 
-        if(!body.getEmail().contains("@") || !body.getEmail().contains(".")) {
-            return Map.of("error", "Invalid email address.");
+        if (!body.getEmail().contains("@") || !body.getEmail().contains(".")) {
+            return reject("Email is not valid.", res);
         }
 
         User user = new User();
@@ -82,10 +99,22 @@ public class RegisterController {
     }
 
     @Getter
-    public static class ReqBody {
+    public static class RegisterReqBody {
         public String username;
         public String password;
         public String name;
         public String email;
+    }
+
+    public Object reject(String message, HttpServletResponse response) {
+        response.setStatus(400);
+        response.setContentType("application/json");
+        try {
+            response.getWriter().write("{\"error\": \"bad request\", \"message\": \"" + message + "\"}");
+            response.getWriter().flush();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

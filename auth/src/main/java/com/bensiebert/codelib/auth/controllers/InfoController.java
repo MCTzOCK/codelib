@@ -2,14 +2,16 @@ package com.bensiebert.codelib.auth.controllers;
 
 import com.bensiebert.codelib.auth.annotations.Authenticated;
 import com.bensiebert.codelib.auth.annotations.CurrentUser;
-import com.bensiebert.codelib.auth.primitive.Auth;
 import com.bensiebert.codelib.auth.data.User;
+import com.bensiebert.codelib.auth.springdoc.UnauthorizedResponse401;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,14 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 )
 public class InfoController {
 
-    @Operation(summary = "Get info about the current account", tags = "users")
+    @Operation(summary = "Get info about the current account", tags = "Users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User info retrieved successfully"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized")
+            @ApiResponse(responseCode = "200", description = "User info retrieved successfully",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))
+                    }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = UnauthorizedResponse401.class))
+                    }),
     })
     @Authenticated
     @RequestMapping(path = "/auth/info", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public Object delete(@CurrentUser User user) {
+    public Object delete(@Parameter(hidden = true) @CurrentUser User user) {
         return user.withPasswordHash("");
     }
 }

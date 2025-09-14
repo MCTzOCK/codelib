@@ -1,5 +1,6 @@
 package com.bensiebert.codelib.auth.data;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class User {
     @Column(unique = true, nullable = false)
     @With private String email;
 
+    @Schema(hidden = true)
     @Column(nullable = false)
     @With private String passwordHash;
 
