@@ -5,6 +5,10 @@ import com.bensiebert.codelib.crud.GenericCrudController;
 import com.bensiebert.codelib.hooks.HookManager;
 import com.bensiebert.codelib.ratelimiting.RateLimited;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -31,7 +35,12 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @Authenticated(roles = {"admin"})
-    @Operation(summary = "Create a new FAQ entry", tags = {"faqs"})
+    @Operation(summary = "Create a new FAQ entry", tags = {"FAQs"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "FAQ entry created successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = FAQ.class))
+            ),
+    })
     public ResponseEntity<FAQ> create(FAQ entity, HttpServletRequest httpRequest) {
         HookManager.fire("faq.created", entity);
         return super.create(entity, httpRequest);
@@ -39,7 +48,12 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @Authenticated(roles = {"admin"})
-    @Operation(summary = "Delete a FAQ entry", tags = {"faqs"})
+    @Operation(summary = "Delete a FAQ entry", tags = {"FAQs"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "FAQ entry deleted successfully",
+                content = @Content()
+            ),
+    })
     public ResponseEntity<Object> delete(String s, HttpServletRequest httpRequest) {
         HookManager.fire("faq.deleted", s);
         return super.delete(s, httpRequest);
@@ -47,7 +61,12 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @Authenticated(roles = {"admin"})
-    @Operation(summary = "Update a FAQ entry", tags = {"faqs"})
+    @Operation(summary = "Update a FAQ entry", tags = {"FAQs"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "FAQ entry updated successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = FAQ.class))
+            ),
+    })
     public ResponseEntity<FAQ> update(String s, FAQ entity, HttpServletRequest httpRequest) {
         HookManager.fire("faq.updated", entity);
         return super.update(s, entity, httpRequest);
@@ -55,14 +74,22 @@ public class FAQController extends GenericCrudController<FAQ, String> {
 
     @Override
     @RateLimited(limit = 10, interval = 60)
-    @Operation(summary = "Get a specific FAQ entry", tags = {"faqs"})
+    @Operation(summary = "Get a specific FAQ entry", tags = {"FAQs"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "FAQ entry found",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = FAQ.class))
+            ),
+    })
     public ResponseEntity<FAQ> getById(String s, HttpServletRequest httpRequest) {
         return super.getById(s, httpRequest);
     }
 
     @Override
     @RateLimited(limit = 10, interval = 60)
-    @Operation(summary = "Get all FAQ entries", tags = {"faqs"})
+    @Operation(summary = "Get all FAQ entries", tags = {"FAQs"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "FAQ entries found"),
+    })
     public ResponseEntity<Page<FAQ>> getAll(String search, Pageable pageable, HttpServletRequest httpRequest) {
         return super.getAll(search, pageable, httpRequest);
     }

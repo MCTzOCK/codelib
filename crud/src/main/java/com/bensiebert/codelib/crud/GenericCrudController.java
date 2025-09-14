@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public abstract class GenericCrudController<T, ID> {
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))
             )
     })
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<T>> getAll(
             @RequestParam(value = "search", required = false) String search,
             @Parameter(name = "pageable", description = "Pagination and sorting information")
@@ -69,7 +70,7 @@ public abstract class GenericCrudController<T, ID> {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))
             )
     })
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<T> getById(@Parameter(name = "ID of the entity") @PathVariable(name = "id") ID id, HttpServletRequest httpRequest) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
@@ -84,7 +85,7 @@ public abstract class GenericCrudController<T, ID> {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))
             )
     })
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<T> create(@RequestBody T entity, HttpServletRequest httpRequest) {
         T saved = service.save(entity);
         return ResponseEntity
@@ -100,7 +101,7 @@ public abstract class GenericCrudController<T, ID> {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))
             )
     })
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<T> update(
             @Parameter(name = "ID of the Entity") @PathVariable(name = "id") ID id,
             @RequestBody T entity,
@@ -117,7 +118,7 @@ public abstract class GenericCrudController<T, ID> {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))
             )
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> delete(@Parameter(name = "ID of the entity") @PathVariable(name = "id") ID id, HttpServletRequest httpRequest) {
         return service.findById(id)
                 .map(existing -> {

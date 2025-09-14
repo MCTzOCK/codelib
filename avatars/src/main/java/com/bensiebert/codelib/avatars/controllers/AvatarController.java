@@ -38,7 +38,7 @@ public class AvatarController {
             @ApiResponse(responseCode = "401", description = "Unauthorized",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UnauthorizedResponse401.class))}
             ),
-            @ApiResponse(responseCode = "429", description = "Rate limit exceeded",
+            @ApiResponse(responseCode = "429", description = "Too Many Requests",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Error429Response.class))}
             )
     })
