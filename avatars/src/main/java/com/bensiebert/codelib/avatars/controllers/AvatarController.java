@@ -27,7 +27,7 @@ public class AvatarController {
     @Autowired
     private AvatarRepository repo;
 
-    @Operation(summary = "Update an avatar", tags = {"avatars"})
+    @Operation(summary = "Update an avatar", tags = {"User avatars"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Avatar updated successfully",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Avatar200Response.class))}
@@ -67,7 +67,7 @@ public class AvatarController {
         return new Avatar200Response();
     }
 
-    @Operation(summary = "Get a user's avatar by their user ID", tags = {"avatars"})
+    @Operation(summary = "Get a user's avatar by their user ID", tags = {"User avatars"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "302", description = "Redirect to avatar URL"),
             @ApiResponse(responseCode = "404", description = "Avatar not found")
