@@ -100,8 +100,8 @@
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>
-            <artifactId>onbaording</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
+            <artifactId>onboarding</artifactId>
+            <version>1.0.24-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bensiebert.codelib</groupId>

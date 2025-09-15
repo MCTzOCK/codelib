@@ -40,7 +40,7 @@ public class SQLController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "SQL executed successfully",
                 content = {@Content(mediaType = "application/json", array = @ArraySchema(
-                        schema = @Schema(type = "object", additionalProperties = Schema.AdditionalPropertiesValue.TRUE)
+                        schema = @Schema(type = "object")
                 ))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized",

@@ -1,6 +1,7 @@
 package com.bensiebert.codelib.settings.data;
 
 import com.bensiebert.codelib.auth.data.User;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class Setting {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Hidden
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @With private User user;
 
