@@ -4,6 +4,11 @@ import com.bensiebert.codelib.auth.data.User;
 import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.userdiscovery.UserStub;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,11 +24,18 @@ public class DiscoveryController {
     @Autowired
     private UserRepository repo;
 
-    @Operation(summary = "Discover Users")
+    @Operation(summary = "Discover Users", tags = {"Discovery"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "A list of users matching the search criteria",
+                content = @Content(mediaType = "application/json", array = @ArraySchema(
+                        schema = @Schema(implementation = UserStub.class)
+                ))
+            ),
+    })
     @RequestMapping(value = "/userdiscovery", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public UserStub[] discoverUsers(@RequestParam(required = false, name = "name") String name, @RequestParam(required = false, name = "page") Integer page) {
 
-        if(name != null && !name.isBlank()) {
+        if (name != null && !name.isBlank()) {
             Specification<User> spec = (root, query, cb) -> {
                 String pattern = "%" + name.toLowerCase() + "%";
                 return cb.or(
@@ -35,7 +47,7 @@ public class DiscoveryController {
         }
 
         Pageable pageable = Pageable.ofSize(20);
-        if(page != null && page > 0) {
+        if (page != null && page > 0) {
             pageable = Pageable.ofSize(20).withPage(page);
         }
 
