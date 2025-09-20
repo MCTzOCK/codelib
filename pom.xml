@@ -32,6 +32,7 @@
         <module>avatars</module>
         <module>userdiscovery</module>
         <module>chats</module>
+        <module>files</module>
     </modules>
 
     <distributionManagement>
