@@ -1,6 +1,7 @@
 package com.bensiebert.codelib.chats.data;
 
 import org.springframework.data.domain.Limit;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -15,4 +16,14 @@ public interface ChatMessageRepository extends CrudRepository<ChatMessage, Strin
     List<ChatMessage> findByChatOrderByTimestampAsc(Chat chat, Limit limit);
 
     List<ChatMessage> findByChatOrderByTimestampAsc(Chat chat);
+
+    List<ChatMessage> findByChatAndTimestampGreaterThanOrderByTimestampDesc(Chat chat, Long timestampIsGreaterThan, Limit limit);
+
+    List<ChatMessage> findByChatAndTimestampGreaterThanOrderByTimestampDesc(Chat chat, Long timestampIsGreaterThan);
+
+    List<ChatMessage> findByChatOrderByTimestampDesc(Chat chat, Pageable pageable);
+
+    List<ChatMessage> findByChatOrderByTimestampDesc(Chat chat, Limit limit);
+
+    List<ChatMessage> findByChatOrderByTimestampDesc(Chat chat);
 }

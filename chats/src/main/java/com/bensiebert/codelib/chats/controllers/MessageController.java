@@ -52,7 +52,7 @@ public class MessageController {
 
         Optional<Chat> ch = chats.findById(id);
 
-        if(!ch.isPresent()) {
+        if (!ch.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -70,7 +70,7 @@ public class MessageController {
 
         ChatMessage saved = messages.save(msg);
 
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(sanitizeMessage(saved));
     }
 
     @Operation(summary = "Get messages in a chat", tags = {"Messages"})
@@ -81,13 +81,14 @@ public class MessageController {
             ))
     })
     @Authenticated
+    @RequestMapping(path = "/chats/{id}/messages", produces = "application/json", method = RequestMethod.GET)
     public List<ChatMessage> getMessages(@Parameter(hidden = true) @CurrentUser User user, @PathVariable(name = "id", required = true) String id,
                                          @RequestParam(name = "after", required = false) Long after,
                                          @RequestParam(name = "limit", required = false) Integer limit
-                                         ) {
+    ) {
         Optional<Chat> ch = chats.findById(id);
 
-        if(!ch.isPresent()) {
+        if (!ch.isPresent()) {
             return List.of();
         }
 
@@ -97,16 +98,27 @@ public class MessageController {
             return List.of();
         }
 
-        if(after != null && limit != null) {
+        List<ChatMessage> msgs;
+
+        if (after != null && limit != null) {
             Pageable pageable = PageRequest.ofSize(limit);
-            return messages.findByChatAndTimestampGreaterThanOrderByTimestampAsc(chat, after, pageable.toLimit());
-        } else if(after != null) {
-            return messages.findByChatAndTimestampGreaterThanOrderByTimestampAsc(chat, after);
-        } else if(limit != null) {
+            msgs = messages.findByChatAndTimestampGreaterThanOrderByTimestampDesc(chat, after, pageable.toLimit());
+        } else if (after != null) {
+            msgs = messages.findByChatAndTimestampGreaterThanOrderByTimestampDesc(chat, after);
+        } else if (limit != null) {
             Pageable pageable = PageRequest.ofSize(limit);
-            return messages.findByChatOrderByTimestampAsc(chat, pageable.toLimit());
+            msgs = messages.findByChatOrderByTimestampDesc(chat, pageable.toLimit());
         } else {
-            return messages.findByChatOrderByTimestampAsc(chat);
+            msgs = messages.findByChatOrderByTimestampDesc(chat);
         }
+
+        return msgs.stream().map(this::sanitizeMessage).toList();
+    }
+
+    public ChatMessage sanitizeMessage(ChatMessage msg) {
+        if (msg == null) {
+            return null;
+        }
+        return msg.withChat(null);
     }
 }

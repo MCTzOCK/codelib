@@ -13,10 +13,11 @@ import lombok.Setter;
 public class UserStub {
 
     private String id;
+    private String username;
     private String name;
     private String role;
 
     public static UserStub of(User user) {
-        return new UserStub(user.getId(), user.getName(), user.getRole());
+        return new UserStub(user.getId(), user.getUsername(), user.getName(), user.getRole());
     }
 }

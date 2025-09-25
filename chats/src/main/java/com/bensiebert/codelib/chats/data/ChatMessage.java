@@ -1,10 +1,7 @@
 package com.bensiebert.codelib.chats.data;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
@@ -28,6 +25,7 @@ public class ChatMessage {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "chat_id", nullable = false)
+    @With
     private Chat chat;
 
 }

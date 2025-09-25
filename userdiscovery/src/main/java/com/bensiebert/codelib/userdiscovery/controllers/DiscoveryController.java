@@ -40,7 +40,8 @@ public class DiscoveryController {
                 String pattern = "%" + name.toLowerCase() + "%";
                 return cb.or(
                         cb.like(cb.lower(root.get("name")), pattern),
-                        cb.like(cb.lower(root.get("email")), pattern)
+                        cb.like(cb.lower(root.get("email")), pattern),
+                        cb.like(cb.lower(root.get("username")), pattern)
                 );
             };
             return repo.findAll(spec).stream().map(UserStub::of).toArray(UserStub[]::new);

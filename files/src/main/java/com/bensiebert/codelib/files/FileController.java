@@ -36,7 +36,7 @@ public class FileController {
     @Operation(summary = "Redirect to file", tags = {"Files"})
     @ApiResponses(value = {})
     @RequestMapping(path = "/files/{objectName}", method = RequestMethod.GET)
-    public ResponseEntity<Void> getFile(@PathVariable String objectName) {
+    public ResponseEntity<Void> getFile(@PathVariable(name = "objectName") String objectName) {
         Duration expiry = Duration.ofSeconds(500);
         String presignedUrl = storageService.getPresignedUrl(objectName, expiry);
         return ResponseEntity.status(302)
