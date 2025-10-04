@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.bensiebert</groupId>
         <artifactId>codelib</artifactId>
-        <version>1.0.32-SNAPSHOT</version>
+        <version>1.0.33-SNAPSHOT</version>
     </parent>
 
     <groupId>com.bensiebert.codelib</groupId>
     <artifactId>hooks</artifactId>
-    <version>1.0.32-SNAPSHOT</version>
+    <version>1.0.33-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>24</maven.compiler.source>

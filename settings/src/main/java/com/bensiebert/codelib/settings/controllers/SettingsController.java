@@ -82,7 +82,7 @@ public class SettingsController {
             )
     })
     @Authenticated
-    @RateLimited(limit = 1, interval = 1)
+    @RateLimited(limit = 10, interval = 10)
     @RequestMapping(path = "/settings", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public Object createOrUpdateSetting(@Parameter(hidden = true) @CurrentUser User user, @RequestBody PostBody body) {
         if (user == null) return Map.of("error", "Invalid or missing authentication token.");
