@@ -3,6 +3,7 @@ package com.bensiebert.codelib.settings.controllers;
 import com.bensiebert.codelib.auth.annotations.Authenticated;
 import com.bensiebert.codelib.auth.annotations.CurrentUser;
 import com.bensiebert.codelib.auth.data.User;
+import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.auth.springdoc.UnauthorizedResponse401;
 import com.bensiebert.codelib.hooks.HookManager;
 import com.bensiebert.codelib.ratelimiting.RateLimited;
@@ -38,6 +39,9 @@ public class SettingsController {
     @Autowired
     private SettingRepository repo;
 
+    @Autowired
+    private UserRepository users;
+
     @Operation(summary = "Get all settings for the authenticated user", tags = {"Settings"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Settings retrieved successfully",
@@ -56,7 +60,7 @@ public class SettingsController {
     @RateLimited(limit = 1, interval = 1)
     @RequestMapping(path = "/settings", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public Object getSettings(@Parameter(hidden = true) @CurrentUser User user) {
-        List<Setting> settings = repo.getSettingsByUser(user);
+        List<Setting> settings = repo.getSettingsByUser(getFromDetached(user));
 
         for (Setting setting : settings) {
             setting.setUser(null);
@@ -83,7 +87,7 @@ public class SettingsController {
     public Object createOrUpdateSetting(@Parameter(hidden = true) @CurrentUser User user, @RequestBody PostBody body) {
         if (user == null) return Map.of("error", "Invalid or missing authentication token.");
 
-        Setting existing = repo.getSettingsByKeyAndUser(body.getKey(), user);
+        Setting existing = repo.getSettingsByKeyAndUser(body.getKey(), getFromDetached(user));
 
         if (existing != null) {
             existing.setValue(body.getValue());
@@ -93,7 +97,7 @@ public class SettingsController {
         }
 
         Setting setting = new Setting();
-        setting.setUser(user);
+        setting.setUser(getFromDetached(user));
         setting.setKey(body.getKey());
         setting.setValue(body.getValue());
         setting = repo.save(setting);
@@ -119,7 +123,7 @@ public class SettingsController {
     @RateLimited(limit = 1, interval = 1)
     @RequestMapping(path = "/settings", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public Object deleteSetting(@Parameter(hidden = true) @CurrentUser User user, @RequestBody DeleteBody body) {
-        Setting existing = repo.getSettingsByKeyAndUser(body.getKey(), user);
+        Setting existing = repo.getSettingsByKeyAndUser(body.getKey(), getFromDetached(user));
 
         if (existing != null) {
             repo.delete(existing);
@@ -143,5 +147,9 @@ public class SettingsController {
     @AllArgsConstructor
     public static class SettingsDeletedResponse200 {
         public String status;
+    }
+
+    public User getFromDetached(User user) {
+        return users.findById(user.getId()).orElse(null);
     }
 }
