@@ -3,6 +3,7 @@ package com.bensiebert.codelib.avatars.controllers;
 import com.bensiebert.codelib.auth.annotations.Authenticated;
 import com.bensiebert.codelib.auth.annotations.CurrentUser;
 import com.bensiebert.codelib.auth.data.User;
+import com.bensiebert.codelib.auth.data.UserRepository;
 import com.bensiebert.codelib.auth.springdoc.BasicErrorResponse;
 import com.bensiebert.codelib.auth.springdoc.UnauthorizedResponse401;
 import com.bensiebert.codelib.avatars.data.Avatar;
@@ -26,6 +27,9 @@ public class AvatarController {
 
     @Autowired
     private AvatarRepository repo;
+
+    @Autowired
+    private UserRepository users;
 
     @Operation(summary = "Update an avatar", tags = {"User avatars"})
     @ApiResponses(value = {
@@ -83,6 +87,29 @@ public class AvatarController {
         response.setStatus(302);
         response.setHeader("Location", a.getAvatar());
     }
+
+    @Operation(summary = "Get a user's avatar by their username", tags = {"User avatars"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Redirect to avatar URL"),
+            @ApiResponse(responseCode = "404", description = "Avatar not found")
+    })
+    @RequestMapping(path = "/avatars/username/{username}", method = RequestMethod.GET)
+    public void getAvatarByUsername(@PathVariable(name = "username") String username, HttpServletResponse response) {
+        User u = users.findByUsername(username);
+        if(u == null) {
+            response.setStatus(404);
+            return;
+        }
+        Avatar a = repo.getAvatarByUserId(u.getId());
+        if(a == null || a.getAvatar() == null || a.getAvatar().isEmpty()) {
+            response.setStatus(404);
+            return;
+        }
+
+        response.setStatus(302);
+        response.setHeader("Location", a.getAvatar());
+    }
+
 
     public Object reject(String message, HttpServletResponse res) {
         res.setStatus(400);
