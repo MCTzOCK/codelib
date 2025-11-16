@@ -6,7 +6,7 @@
 
     <groupId>com.bensiebert</groupId>
     <artifactId>codelib</artifactId>
-    <version>1.0.34-SNAPSHOT</version>
+    <version>1.0.37-SNAPSHOOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -33,6 +33,7 @@
         <module>userdiscovery</module>
         <module>chats</module>
         <module>files</module>
+        <module>encrypted-network-layer</module>
     </modules>
 
     <distributionManagement>

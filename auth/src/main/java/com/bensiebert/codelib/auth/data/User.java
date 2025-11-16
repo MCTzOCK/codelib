@@ -1,5 +1,6 @@
 package com.bensiebert.codelib.auth.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,7 @@ public class User {
 
     @Schema(hidden = true)
     @Column(nullable = false)
+    @JsonIgnore
     @With private String passwordHash;
 
     @Column(nullable = false)

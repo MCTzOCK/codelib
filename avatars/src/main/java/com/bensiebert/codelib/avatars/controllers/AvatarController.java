@@ -58,7 +58,7 @@ public class AvatarController {
 
         if(a == null) {
             a = new Avatar();
-            a.setUser(user);
+            a.setUser(users.findById(user.getId()).get());
         }
 
         a.setAvatar(url);
