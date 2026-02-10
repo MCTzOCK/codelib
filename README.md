@@ -1,2 +1,2 @@
 # codelib
-common spring boot libraries 
+common spring boot libraries (written in Java)
