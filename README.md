@@ -1,5 +1,5 @@
 # codelib
 common spring boot libraries (written in Java)
 
-# docs
+# Documentation
 coming soon
